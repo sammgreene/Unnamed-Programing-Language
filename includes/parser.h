@@ -45,20 +45,34 @@ public:
   void print();
 private:
   TokenStream stream;
+
   Statement* create_statement();
+
   Expr* create_expression(BinaryOperator presidence);
   Expr* expr_from_curr_token();
+  Expr* create_function_call(std::string id);
+  std::vector<Expr*> get_function_call_arguments(std::vector<Expr*> args);
+
   SymbolExpr* get_symbol_expr_from_curr_token();
+  std::vector<Parameter*> get_parameters(std::vector<Parameter*> previous);
   BinaryExpr* led_expression(BinaryOperator previous_binding_power, BinaryExpr* l);
+
   void expect_or_error(std::vector<TokenType> types, std::string err_str);
+
   BinaryOperator convert_token_to_operator();
+
   Type get_current_token_type();
+
   Body* create_primary_body();
   Body* create_bracketed_body();
+
   Expression* create_regular_expr();
   Assignment* create_assignment();
   If* create_if_statement();
   Return* create_return_statement();
+  Function* create_function_statement();
+  // Function* create_function_statement();
+
   AST ast;
 };
 

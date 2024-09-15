@@ -29,9 +29,12 @@ again:
     case EOF: next_char(); current_token.type = EOI; break;
     case '-': next_char(); current_token.type = MINUS; break;
     case '+': next_char(); current_token.type = PLUS; break;
+    case '>': next_char(); current_token.type = R_ARROW; break;
+    case '<': next_char(); current_token.type = L_ARROW; break;
     case '*': next_char(); current_token.type = STAR; break;
     case '/': next_char(); current_token.type = SLASH; break;
     case ';': next_char(); current_token.type = SEMI; break;
+    case ',': next_char(); current_token.type = COMMA; break;
     case '(': next_char(); current_token.type = L_PAR; break;
     case ')': next_char(); current_token.type = R_PAR; break;
     case '{': next_char(); current_token.type = L_BRACKET; break;

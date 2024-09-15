@@ -42,10 +42,11 @@ public:
   }
 };
 class LiteralExpr : public Expr {
-public:
   int val;
+public:
   LiteralExpr(int v) : val(v) {}
   LiteralExpr() {}
+
   void print(int depth) {
     for (int i=0;i<depth;i++) {
       std::cout << "  ";
@@ -54,8 +55,8 @@ public:
   }
 };
 class SymbolExpr : public Expr {
-public:
   std::string id;
+public:
   SymbolExpr(std::string s) : id(s) {}
   SymbolExpr() {}
   void print(int depth) {
@@ -98,7 +99,60 @@ public:
   BinaryOperator binding_power() {
     return op;
   }
+};
+class Parameter : Expr {
+  Type kind;
+  std::string id;
+public:
+  Parameter() {};
+  Parameter(Type k, std::string i) : kind(k), id(i) {};
 
+  void print(int depth) {
+    for (int i=0;i<depth;i++) {
+      std::cout << "  ";
+    }
+    std::cout << "Parameter: {" << std::endl;
+
+    TypePrint(kind, depth + 1);
+
+    for (int i=0;i<depth + 1;i++) {
+      std::cout << "  ";
+    }
+    std::cout << "id: " << id << std::endl;
+
+    for (int i=0;i<depth;i++) {
+      std::cout << "  ";
+    }
+    std::cout << "}" << std::endl;
+  }
+};
+class FunctionCall : public Expr {
+  std::string id;
+  std::vector<Expr*> args;
+public:
+  FunctionCall() {};
+  FunctionCall(std::string i, std::vector<Expr*> a) : id(i), args(a) {};
+
+  void print(int depth) {
+    for (int i=0;i<depth;i++) {
+      std::cout << "  ";
+    }
+    std::cout << "FunctionCall: {" << std::endl;
+
+    for (int i=0;i<depth + 1;i++) {
+      std::cout << "  ";
+    }
+    std::cout << "id: " << id << std::endl;
+
+    for (Expr* e : args) {
+      e->print(depth + 1);
+    }
+
+    for (int i=0;i<depth;i++) {
+      std::cout << "  ";
+    }
+    std::cout << "}" << std::endl;
+  };
 };
 
 class Statement {
@@ -211,6 +265,41 @@ public:
     std::cout << "Expression: {" << std::endl;
 
     expression->print(depth + 1);
+
+    for (int i=0;i<depth;i++) {
+      std::cout << "  ";
+    }
+    std::cout << "}" << std::endl;
+  };
+};
+
+class Function : public Statement {
+  Type return_type;
+  std::string id;
+  std::vector<Parameter*> parameters;
+  Body* body;
+public:
+  Function() {};
+  Function(Type r, std::string i, std::vector<Parameter*> p, Body* b) : return_type(r), id(i), parameters(p), body(b) {};
+
+  void print(int depth) {
+    for (int i=0;i<depth;i++) {
+      std::cout << "  ";
+    }
+    std::cout << "Function: {" << std::endl;
+
+    TypePrint(return_type, depth + 1);
+
+    for (int i=0;i<depth + 1;i++) {
+      std::cout << "  ";
+    }
+    std::cout << "id: " << id << std::endl;
+
+    for (Parameter* parameter : parameters) {
+      parameter->print(depth + 1);
+    }
+
+    body->print(depth + 1);
 
     for (int i=0;i<depth;i++) {
       std::cout << "  ";

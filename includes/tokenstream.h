@@ -22,6 +22,8 @@ enum TokenType {
   SLASH,
   STAR,
   MINUS,
+  R_ARROW,
+  L_ARROW,
 
   // UNARY OPERATORS
   NOT,
@@ -42,6 +44,7 @@ enum TokenType {
   STRING_CONST,
 
   SEMI,
+  COMMA,
 
   SOI, // START OF INPUT
   EOI, // END OF INPUT
@@ -54,6 +57,9 @@ public:
   TokenType type;
   std::string id;
   uint16_t val;
+
+  Token(TokenType t) : type(t) {};
+  Token() {};
 
   friend std::ostream& operator<< (std::ostream& iostream, const Token& token) {
     switch (token.type)
