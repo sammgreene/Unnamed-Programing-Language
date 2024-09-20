@@ -1,6 +1,11 @@
+#include "includes/parser.h"
 #include <iostream>
 
 int main() {
-  std::cout << "Hello World!" << std::endl;
+  Parser p = Parser("example.upl");
+
+  p.construct_tree();
+  p.print();
+
   return 0;
 };
