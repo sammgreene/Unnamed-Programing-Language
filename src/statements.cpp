@@ -52,6 +52,20 @@ void RegularStatement::print(int depth) {
   std::cout << "}" << std::endl;
 }
 void ReturnStatement::print(int depth) {}
-void IfStatement::print(int depth) {}
+void IfStatement::print(int depth) {
+  for (int i=0;i<depth;i++) {
+    std::cout << "  ";
+  }
+  std::cout << "IfStatement: {" << std::endl;
+
+  condition->print("condition: ", depth+1);
+  if_body->print(depth+1);
+  else_body->print(depth+1);
+
+  for (int i=0;i<depth;i++) {
+    std::cout << "  ";
+  }
+  std::cout << "}" << std::endl;
+}
 void FuncStatement::print(int depth) {}
 void AssignStatement::print(int depth) {}

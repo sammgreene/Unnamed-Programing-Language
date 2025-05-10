@@ -287,15 +287,20 @@ Statement* Parser::create_if_statement() {
   expect(L_BRACKET, "expected right paren to end if statement condition");
   condition->print("", 0);
 
+  // THIS NEEDS TO BE CHANGED ***
   Body* if_body = new Body();
   make_body(if_body);
 
   stream.next();
   if (!token_matches(ELSE)) return new IfStatement(condition, if_body, new Body());
+  stream.next();
   Body* else_body = new Body();
   make_body(else_body);
+  // TO HERE ***
 
-  return new IfStatement(condition, if_body, else_body);
+  Statement* s = new IfStatement(condition, if_body, else_body);
+
+  return s;
 }
 
 Statement* Parser::create_return_statement() {}
