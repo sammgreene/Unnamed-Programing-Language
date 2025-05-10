@@ -11,6 +11,7 @@ if (a == b) {
 ```
 
 output:
+```
 Body: {
   RegularStatement: {
     expr: BinaryExpr: {
@@ -46,3 +47,4 @@ Body: {
     }
   }
 }
+```
