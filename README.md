@@ -3,7 +3,7 @@
 
 ### WIP
 
-input:
+input: example.upl
 ```
 func(1, 2, 1 != 2) + 1;
 
